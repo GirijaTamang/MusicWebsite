@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Music</title>
+	
+
+	<link rel="stylesheet" type="text/css" href="Css/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+	
+</head>
+<body>
+	<div class="main">
+		<div class="music_div">
+			<h2 id="title">Young Dumb & Broke</h2>
+			<h3 id="artist">Khalid</h3>
+			<div class="music_img">
+				<img src="Image/music.jpg" alt="">
+			</div>
+			<audio src="Music/music.mp3" ></audio>
+
+
+			<!-- Controls-->
+			<div class="control">
+				<i class="fas fa-backward" id="prev" title="Previous"></i>
+				<i class="fas fa-play start" id="play" title="Play"></i>
+				<i class="fas fa-forward" id="next" title="Next"></i>
+			</div>
+		</div>
+	</div>
+	<script>
+		const music= document.querySelector("audio");
+		const img = document.querySelector("img");
+		const play = document.getElementById('play');
+		const title = document.getElementById('title');
+		const artist = document.getElementById('artist');
+		const previous = document.getElementById('prev');
+		const next = document.getElementById('next');
+
+		const songs =[
+		{
+			name:"music",
+			title:"Young Dumb & Broke",
+			artist:"Khalid",
+		},
+		{
+			name:"music1",
+			title:"Nyano Ghar",
+			artist:"Arthur Gunn",
+		},
+		{
+			name:"music2",
+			title:"Laakhau Hajarau",
+			artist:"Yabesh Thapa",
+		},
+		{
+			name:"music3",
+			title:"Let Me Down Slowly",
+			artist:"Alec Benjamin",
+		},
+		{
+			name:"music4",
+			title:"Timi Ra Ma",
+			artist:"Dixita Karki",
+		},
+		{
+			name:"music5",
+			title:"Kina Kina Tmro Tasbir",
+			artist:"Ghulam Ali",
+		},
+		]
+
+		let isPlaying = false;
+
+		//for play
+		const playMusic = () => {
+			isPlaying = true;
+			music.play();
+			play.classList.replace("fa-play","fa-pause");
+			img.classList.add("anime");
+		};
+
+		//for pause
+		const pauseMusic = () => {
+			isPlaying = false;
+			music.pause();
+			play.classList.replace("fa-pause","fa-play");
+			img.classList.remove("anime");
+		};
+
+
+		play.addEventListener('click',() => {
+			isPlaying ? pauseMusic() : playMusic();
+
+		 	// if(isPlaying) {
+		 	//	pauseMusic();
+		 	// }
+		 	// else{
+		 	//	playMusic();
+		 	// }
+		});
+
+		// changing music and artist
+		const loadSongs =(songs) => {
+			title.textContent = songs.title;
+			artist.textContent = songs.artist;
+			music.src = "Music/" + songs.name + ".mp3";
+			img.src = "Image/" + songs.name + ".jpg";
+
+
+		};
+
+		songIndex = 0;
+		//loadSongs(songs[0]);
+
+		const nextSong = () => {
+			songIndex =(songIndex + 1) % songs.length;
+			loadSongs(songs[songIndex]);
+			playMusic();
+		};
+
+
+		const prevSong = () => {
+			songIndex =(songIndex - 1 + songs.length) % songs.length;
+			loadSongs(songs[songIndex]);
+			playMusic();
+		};
+
+
+		next.addEventListener('click', nextSong);
+		prev.addEventListener('click', prevSong);
+	</script>
+<!-- Created By Girija Tamang--> 
+</body>
+</html>
